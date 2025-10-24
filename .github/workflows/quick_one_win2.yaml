@@ -60,15 +60,24 @@ jobs:
         if: ${{ matrix.backend == 'torch' }}
         run: |
           pip install -U torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
-
+    
       - name: Show Environment Info
         run: |
           python --version
-          pip --version
+          python -m pip --version
           printenv | sort
-          pip list
+          python -m pip list
+          python -m pip freeze > packages_.txt
+      
+      - name: Upload packages list artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: packages-list-${{ matrix.os }}-${{ matrix.backend }}   
+          path: packages_.txt
+          retention-days: 10  
 
       - name: Run Tests
         run: |
           pytest tests/test_approximators/test_approximator_standardization/test_approximator_standardization.py::test_save_and_load[standardize='all'] -v 
+          
 
