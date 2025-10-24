@@ -70,7 +70,7 @@ jobs:
           python -m pip freeze > packages_.txt
       
       - name: Upload packages list artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: packages-list-${{ matrix.os }}-${{ matrix.backend }}   
           path: packages_.txt
