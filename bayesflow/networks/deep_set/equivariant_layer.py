@@ -99,8 +99,12 @@ class EquivariantLayer(keras.Layer):
         self.layer_norm = layers.LayerNormalization() if layer_norm else None
 
     @sanitize_input_shape
-    def build(self, input_shape):
-        self.call(keras.ops.zeros(input_shape))
+    def build(self, input_set_shape):
+        # Keras requires build() args to match call() arg names with a '_shape' suffix.
+        # call(...) accepts an argument named 'input_set', so the corresponding
+        # build parameter must be 'input_set_shape'. Use that to create a dummy
+        # tensor and trigger layer building.
+        self.call(keras.ops.zeros(input_set_shape))
 
     def call(self, input_set: Tensor, training: bool = False, **kwargs) -> Tensor:
         """Performs the forward pass of a learnable equivariant transform.
