@@ -83,5 +83,6 @@ jobs:
       - name: Run Tests
         run: |
           # Run the test node directly (remove parameter suffix because the test isn't parametrized that way)
-          pytest tests/test_approximators/test_approximator_standardization/test_approximator_standardization.py::test_save_and_load -v
+          # pytest tests/test_approximators/test_approximator_standardization/test_approximator_standardization.py::test_save_and_load -v
+          pytest "tests\test_approximators\test_approximator_standardization\test_approximator_standardization.py::test_save_and_load[all]" -v
           
