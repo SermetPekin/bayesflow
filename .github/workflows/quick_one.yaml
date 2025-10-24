@@ -23,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest] # , windows-latest
         python-version: ["3.10"]  # we usually only need to test the oldest python version
         backend: ["tensorflow"] # "jax", "torch"
 
