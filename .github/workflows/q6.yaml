@@ -34,7 +34,7 @@ on:
       pytest_command:
         description: 'Custom pytest command to run'
         required: false
-        default: 'tests/test_approximators/test_approximator_standardization/test_approximator_standardization.py'
+        default: 'python -m pytest tests/test_approximators/test_approximator_standardization/test_approximator_standardization.py'
         type: string
   pull_request:
     branches:
