@@ -1,4 +1,4 @@
-name: q5 Test BayesFlow
+name: q5 Test BayesFlow 1
 
 on:
   workflow_dispatch:
