@@ -31,11 +31,6 @@ on:
         required: true
         default: 'tensorflow'
         type: string
-      pytest_command:
-        description: 'Custom pytest command to run'
-        required: false
-        default: 'python -m pytest bayesflow-dev/tests/test_approximators/test_approximator_standardization/test_approximator_standardization.py'
-        type: string
   pull_request:
     branches:
       - '**'
