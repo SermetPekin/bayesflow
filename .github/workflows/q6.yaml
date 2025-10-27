@@ -267,8 +267,20 @@ jobs:
           uv pip install tensorflow --system
           
           # Use custom pytest command from input or default
-          PYTEST_CMD="${{ github.event.inputs.pytest_command || 'python -m pytest -x -m \"not slow\"' }}"
+          GEN_CMD='python -m pytest -x -m "not slow"'
           
+          # Get the input or use default
+          INPUT_CMD="${{ github.event.inputs.pytest_command }}"
+          
+          # Use input if provided, otherwise use default
+          if [ -z "$INPUT_CMD" ]; then
+            PYTEST_CMD="$GEN_CMD"
+          else
+            PYTEST_CMD="$INPUT_CMD"
+          fi
+          
+          echo "Initial command: $PYTEST_CMD"
+
           # Check if it's a file path or a pytest command
           if [[ "$PYTEST_CMD" == *.py ]]; then
             # It's a file path, need to add pytest prefix and fix the path
