@@ -1,4 +1,4 @@
-name: q6 Test BayesFlow Manual
+name: q7 Test BayesFlow Manual
 
 on:
   workflow_dispatch:
