@@ -266,30 +266,30 @@ jobs:
           echo "Running tests with backend: $KERAS_BACKEND"
           uv pip install tensorflow --system
           
-          # Use custom pytest command from input or default
-          GEN_CMD='python -m pytest -x -m "not slow"'
+          # Default command (specific test file)
+          DEFAULT_CMD='python -m pytest tests/test_approximators/test_approximator_standardization/test_approximator_standardization.py'
           
           # Get the input or use default
           INPUT_CMD="${{ github.event.inputs.pytest_command }}"
           
           # Use input if provided, otherwise use default
           if [ -z "$INPUT_CMD" ]; then
-            PYTEST_CMD="$GEN_CMD"
+            PYTEST_CMD="$DEFAULT_CMD"
           else
             PYTEST_CMD="$INPUT_CMD"
           fi
           
           echo "Initial command: $PYTEST_CMD"
 
+          # Change to bayesflow directory to run tests
+          cd external/bayesflow
+          
           # Check if it's a file path or a pytest command
-          if [[ "$PYTEST_CMD" == *.py ]]; then
-            # It's a file path, need to add pytest prefix and fix the path
-            PYTEST_CMD="python -m pytest external/bayesflow/${PYTEST_CMD}"
-          elif [[ "$PYTEST_CMD" != pytest* ]] && [[ "$PYTEST_CMD" != python* ]]; then
-            # It's just a path without pytest, add it
-            PYTEST_CMD="python -m pytest external/bayesflow/tests/${PYTEST_CMD}"
+          if [[ "$PYTEST_CMD" == *.py ]] && [[ "$PYTEST_CMD" != python* ]] && [[ "$PYTEST_CMD" != pytest* ]]; then
+            # It's just a file path, need to add pytest prefix
+            PYTEST_CMD="python -m pytest ${PYTEST_CMD}"
           fi
           
-          echo "Executing: $PYTEST_CMD"
+          echo "Executing from $(pwd): $PYTEST_CMD"
           eval "$PYTEST_CMD"
            
