@@ -34,7 +34,7 @@ on:
       pytest_command:
         description: 'Custom pytest command to run'
         required: false
-        default: 'python -m pytest tests/test_approximators/test_approximator_standardization/test_approximator_standardization.py'
+        default: 'python -m pytest bayesflow-dev/tests/test_approximators/test_approximator_standardization/test_approximator_standardization.py'
         type: string
   pull_request:
     branches:
@@ -267,7 +267,7 @@ jobs:
           uv pip install tensorflow --system
           
           # Default command (specific test file)
-          DEFAULT_CMD='python -m pytest tests/test_approximators/test_approximator_standardization/test_approximator_standardization.py'
+          DEFAULT_CMD='python -m pytest bayesflow-dev/tests/test_approximators/test_approximator_standardization/test_approximator_standardization.py'
           
           # Get the input or use default
           INPUT_CMD="${{ github.event.inputs.pytest_command }}"
